@@ -10,4 +10,4 @@ DataBase : MySql
 
 
 
-20180912 : main 화면 html,css 틀 잡기
+20180912 : main.jsp / boardWrite.jsp / boardWriteSave.jsp / boardList.jsp 
