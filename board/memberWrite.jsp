@@ -25,6 +25,16 @@
     </style>
     <script>
     $(function() {
+    	$("#chkBtn").click(function() {
+    		var userid = $("#userid").val();
+    		if(userid == "") {
+    			alert("아이디를 입력해주세요.");
+    			return false;
+    		}
+    		var url = "idCheck.jsp?userid="+userid;
+    		window.open(url,"popup","width=300, height=300");
+    	});
+    	
     	$("form").submit(function() {
     		if($("#userid").val() == "") {
     			alert("아이디를 입력해주세요.");
@@ -67,7 +77,7 @@
 						<tr>
 							<th>아이디</th>
 							<td><input type="text" name="userid" id="userid"></td>
-							<td style="padding: 0 20px;"><button type="button">중복체크</button><td>
+							<td style="padding: 0 20px;"><button type="button" id="chkBtn">중복체크</button><td>
 						</tr>
 						<tr>
 							<th>패스워드</th>
