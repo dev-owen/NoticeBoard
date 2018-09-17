@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/include/mysqlDBcon.jsp" %>
 <%
-	String userid = request.getParameter("userid");
-	String pwd = request.getParameter("pwd");
-	String name = request.getParameter("name");
-	String birthday = request.getParameter("birthday");
-	String gender = request.getParameter("gender");
-	String postNum = request.getParameter("postNum");
-	String addr1 = request.getParameter("addr1");
-	String addr2 = request.getParameter("addr2");
-	String phoneNum = request.getParameter("phoneNum");
+	String userid = request.getParameter("userid").trim();
+	String pwd = request.getParameter("pwd").trim();
+	String name = request.getParameter("name").trim();
+	String birthday = request.getParameter("birthday").trim();
+	String gender = request.getParameter("gender").trim();
+	String postNum = request.getParameter("postNum").trim();
+	String addr1 = request.getParameter("addr1").trim();
+	String addr2 = request.getParameter("addr2").trim();
+	String phoneNum = request.getParameter("phoneNum").trim();
 	String method = request.getMethod();
 
 	if(!method.equals("POST")) {

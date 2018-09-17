@@ -35,7 +35,22 @@
     		window.open(url,"popup","width=300, height=300");
     	});
     	
+    	$("#userid").keydown(function(){
+    		document.hiddenFrm.idConfirm.value = "F";
+    	});
+    	
+    	$("#btnReset").keydown(function(){
+    		document.hiddenFrm.idConfirm.value = "F";
+    	});
+    	
     	$("form").submit(function() {
+    		
+    		var idC = document.hiddenFrm.idConfirm.value;
+    		if(idC == "F") {
+    			alert("아이디 중복체크를 해 주세요~~");
+    			return false;
+    		}
+    		
     		if($("#userid").val() == "") {
     			alert("아이디를 입력해주세요.");
     			$("#userid").focus();
@@ -120,7 +135,7 @@
 					</table>
 					<div style="width:100%; text-align: center; padding:10px;">
 						<button type="submit" id="btnSubmit">저장</button>
-						<button type="reset">새로고침</button>
+						<button type="reset" id="btnReset">새로고침</button>
 					</div>
 				</form>
             </div>
@@ -129,3 +144,7 @@
         </div>
     </body>
 </html>
+
+<form name="hiddenFrm">
+<input type="hidden" name="idConfirm" id="idConfirm" value="F">
+</form>

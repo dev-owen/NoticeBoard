@@ -1,9 +1,15 @@
-<%@page import="java.sql.ResultSet"%>
+<%@ page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/include/mysqlDBcon.jsp" %>
 
 <%
+	String sessionId = (String)session.getAttribute("SESSION_ID");
+	boolean login = (sessionId == null ? false : true);
+	String signIn = "";
+	if(login) {
+		signIn = sessionId+"님 반갑습니다."; 
+	}
 String column = request.getParameter("column");
 String words = request.getParameter("words");
 String pageNo = request.getParameter("pageNo");
@@ -60,7 +66,20 @@ ResultSet rs2 = stmt.executeQuery(listSql);
     </style>
     <body>
         <div id="container">
-            <div id="header">Header</div>
+            <div id="header">Header
+            	<span style="position:absolute; right: 250px;"><%=signIn%></span>
+            	<% if(login) {
+            	%>
+            	<button type="button" onclick="location.href='logout.jsp'" style="position: absolute; right: 140px;">로그아웃</button>
+            	<%
+            	} else {
+            	%>
+            	<button type="button" onclick="location.href='login.jsp'" style="position: absolute; right: 140px;">로그인</button>
+            	<%
+            	}
+            	%>
+            	<button type="button" onclick="location.href='memberWrite.jsp'" style="position: absolute; right: 50px;">회원가입</button>
+            </div>
             <div id="sidebar">SideBar</div>
             
             <div id="content">

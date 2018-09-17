@@ -22,8 +22,18 @@ while(rs.next()) {
 <%
 if(cnt == 0) {
 	out.print("<p4 style='color:blue'> 사용할 수 있는 아이디입니다.</p4>");
+%>
+	<script>
+	opener.hiddenFrm.idConfirm.value="T";
+	</script>
+<%
 } else {
 	out.print("<p4 style='color:red'> 이미 사용중인 아이디입니다.</p4>");
+%>
+	<script>
+	opener.hiddenFrm.idConfirm.value="F";
+	</script>
+<%
 }
 %>
 <p>
