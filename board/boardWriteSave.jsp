@@ -6,6 +6,7 @@ String title = request.getParameter("title");
 String pwd = request.getParameter("pwd");
 String writer = request.getParameter("writer");
 String content = request.getParameter("content");
+content = content.replaceAll("'","`");
 String method = request.getMethod();
 
 if(!method.equals("POST")) {
@@ -19,7 +20,7 @@ if(!method.equals("POST")) {
 }
 
 String insertSql = "INSERT INTO nBoard(title, pwd, content, writer, rdate, hit) values('"+title
-+"', '"+pwd+"', '"+content+"', '"+writer+"', sysdate(), 0)";
++"', '"+pwd+"', '"+content+"', '"+writer+"', now(), 0)";
 
 int result = stmt.executeUpdate(insertSql);
 %>

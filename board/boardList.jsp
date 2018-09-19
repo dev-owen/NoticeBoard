@@ -20,13 +20,13 @@ int lastNo = Integer.parseInt(pageNo)*10;
 int startNo = lastNo - 9;
 
 String where = "";
-if( column != null && words != null && !column.equals("") && !words.equals("")) where = "WHRER "+column+" LIKE '%"+words+"%'";
+if( column != null && words != null && !column.equals("") && !words.equals("")) where = column+" LIKE '%"+words+"%'";
 else {
 	column = "";
 	words = "";
 }
-
 String countSql = "SELECT count(*) cnt FROM nBoard";
+
 ResultSet rs = stmt.executeQuery(countSql);
 rs.next();
 int total = rs.getInt("cnt");
@@ -36,7 +36,7 @@ int totalPage = (int) Math.ceil(total/(double)10);
 String listSql = "SELECT b.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rn, a.* FROM "+
 "(SELECT unq, title, writer, hit, content, DATE_FORMAT(rdate, '%Y-%m-%d') rdate FROM nBoard "+
 "ORDER BY unq DESC) a, (SELECT @ROWNUM := 0) c ) b WHERE rn >= "+startNo+" and rn <= "+lastNo;
-
+if(where != "") listSql += " and "+where;
 ResultSet rs2 = stmt.executeQuery(listSql);
 %>
 
@@ -93,8 +93,8 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 	            			<tr>
 	            				<td style="text-align: left">
 		            				<select name="column" style="height:22px;">
-		            					<option value="title" <%if(column.equals("title")){%>selected<%} %>> 제목 </option>
-		            					<option value="content" <%if(column.equals("content")){%>selected<%} %>> 내용 </option>
+		            					<option value="title" <%if(column.equals("title")){%>selected<%} %>>제목</option>
+		            					<option value="content" <%if(column.equals("content")){%>selected<%} %>>내용</option>
 		            				</select>
 	            					<input type="text" name="words" value="<%=words %>"/>
 	            					<button type="submit">검색</button>
