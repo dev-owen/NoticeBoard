@@ -18,3 +18,6 @@
   + memberWrite.jsp / memberWriteSave.jsp / idCheck.jsp
 + 2018/09/17
   + 로그인, 로그아웃 기능 구현 w.t 세션
++ 2018/09/19
+  + 검색 기능, 상세정보, 수정
+  + boardDetail.jsp / boardDel.jsp
