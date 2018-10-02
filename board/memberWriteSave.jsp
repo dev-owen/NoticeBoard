@@ -35,7 +35,7 @@ if(userid == null || userid.equals("") || pwd == null || pwd.equals("") || name 
 }
 
 String insertSql = "INSERT INTO member(userid, pwd, name, birthday, gender, postNum, addr1, addr2, phoneNum, rdate) VALUES('"
-+userid+"', '"+pwd+"', '"+name+"', '"+birthday+"', '"+gender+"','"+postNum+"','"+addr1+"','"+addr2+"', '"+phoneNum+"', sysdate())";
++userid+"', '"+pwd+"', '"+name+"', '"+birthday+"', '"+gender+"','"+postNum+"','"+addr1+"','"+addr2+"', '"+phoneNum+"', now())";
 int result = stmt.executeUpdate(insertSql);
 %>
 <script>

@@ -23,7 +23,7 @@ if(cnt == 0) {
 	return;
 } else {
 	session.setAttribute("SESSION_ID", userid);
-	session.setMaxInactiveInterval(60*2);
+	session.setMaxInactiveInterval(60*20);
 }
 %>
 <script>

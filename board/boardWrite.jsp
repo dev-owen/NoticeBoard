@@ -6,19 +6,28 @@
     	<meta charset="utf-8">
         <title>Main</title>
         <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">	
     </head>
     <style>
-    table { 
-    	text-align: center; 
-    	margin: 0 auto;
-    }
-    tr {
-    	height: 50px;
-    	margin : 20px 0;
-    }
-    input, textarea {
-    	width: 300px;
-    }
+	    table { 
+	    	text-align: center; 
+	    	margin: 0 auto;
+	    }
+	    tr {
+	    	height: 50px;
+	    	margin : 20px 0;
+	    }
+	    input, textarea {
+	    	width: 300px;
+	    }
+    	/* glyphicon 숨기기 */
+		.form-group .glyphicon{
+			display: none;
+		}
+		/* help block 숨기기 */
+		.form-group .help-block{
+			display: none;
+		}
     </style>
     <script>
     	function fn_submit() {
@@ -43,13 +52,13 @@
             
             <div id="content">
             	<form name="frm" method="post" action="boardWriteSave.jsp">
-            		<table border="0" >
+            		<table class="table table-striped form-group has-feedback" >
             			<tr>
             				<th colspan="2">자유게시판</th>
             			</tr>
 						<tr>
-							<th>제목</th>
-							<td><input type="text" name="title"></td>
+							<th  class="control-label" for="id">제목</th>
+							<td><input type="text" class="form-control" name="id" id="id"/></td>
 						</tr>
 						<tr>
 							<th>암호</th>
@@ -76,4 +85,5 @@
             <div id="footer">Footer</div>
         </div>
     </body>
+<script src="../js/jquery-3.3.1.min.js"></script>
 </html>

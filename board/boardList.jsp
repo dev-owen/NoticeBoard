@@ -4,12 +4,12 @@
 <%@ include file="/include/mysqlDBcon.jsp" %>
 
 <%
-	String sessionId = (String)session.getAttribute("SESSION_ID");
-	boolean login = (sessionId == null ? false : true);
-	String signIn = "";
-	if(login) {
-		signIn = sessionId+"님 반갑습니다."; 
-	}
+String sessionId = (String)session.getAttribute("SESSION_ID");
+boolean login = (sessionId == null ? false : true);
+String signIn = "";
+if(login) {
+	signIn = sessionId; 
+}
 String column = request.getParameter("column");
 String words = request.getParameter("words");
 String pageNo = request.getParameter("pageNo");
@@ -25,7 +25,12 @@ else {
 	column = "";
 	words = "";
 }
-String countSql = "SELECT count(*) cnt FROM nBoard";
+String countSql;
+if(where == "") {
+	countSql = "SELECT count(*) cnt FROM nBoard";
+} else {
+	countSql = "SELECT count(*) cnt FROM nBoard WHERE "+where;
+}
 
 ResultSet rs = stmt.executeQuery(countSql);
 rs.next();
@@ -33,10 +38,16 @@ int total = rs.getInt("cnt");
 int number = total - (Integer.parseInt(pageNo)-1)*10;
 int totalPage = (int) Math.ceil(total/(double)10);
 
-String listSql = "SELECT b.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rn, a.* FROM "+
-"(SELECT unq, title, writer, hit, content, DATE_FORMAT(rdate, '%Y-%m-%d') rdate FROM nBoard "+
-"ORDER BY unq DESC) a, (SELECT @ROWNUM := 0) c ) b WHERE rn >= "+startNo+" and rn <= "+lastNo;
-if(where != "") listSql += " and "+where;
+String listSql;
+if(where == "") {
+	listSql = "SELECT b.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rn, a.* FROM "+
+	"(SELECT unq, title, writer, hit, content, DATE_FORMAT(rdate, '%Y-%m-%d') rdate FROM nBoard "+
+	"ORDER BY unq DESC) a, (SELECT @ROWNUM := 0) c ) b WHERE rn >= "+startNo+" and rn <= "+lastNo;
+} else {
+	listSql = "SELECT b.* FROM (SELECT @ROWNUM := @ROWNUM + 1 as rn, a.* FROM "+
+	"(SELECT unq, title, writer, hit, content, DATE_FORMAT(rdate, '%Y-%m-%d') rdate FROM nBoard "+
+	"ORDER BY unq DESC) a, (SELECT @ROWNUM := 0) c ) b WHERE rn >= "+startNo+" and rn <= "+lastNo+" and "+where;
+}
 ResultSet rs2 = stmt.executeQuery(listSql);
 %>
 
@@ -45,6 +56,8 @@ ResultSet rs2 = stmt.executeQuery(listSql);
     <head>
     	<meta charset="utf-8">
         <title>List</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    	<link rel="stylesheet" href="../css/bootstrap.css">	
         <link rel="stylesheet" href="../css/main.css">
     </head>
     <style>
@@ -66,26 +79,36 @@ ResultSet rs2 = stmt.executeQuery(listSql);
     </style>
     <body>
         <div id="container">
-            <div id="header">Header
-            	<span style="position:absolute; right: 250px;"><%=signIn%></span>
-            	<% if(login) {
-            	%>
-            	<button type="button" onclick="location.href='logout.jsp'" style="position: absolute; right: 140px;">로그아웃</button>
-            	<%
-            	} else {
-            	%>
-            	<button type="button" onclick="location.href='login.jsp'" style="position: absolute; right: 140px;">로그인</button>
-            	<%
-            	}
-            	%>
-            	<button type="button" onclick="location.href='memberWrite.jsp'" style="position: absolute; right: 50px;">회원가입</button>
+            <div id="header">
+            	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				 	<a class="navbar-brand" href="../index.jsp"><i class="fas fa-chalkboard"></i>&nbsp;Header</a>
+				 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  	</button>
+				  	<div class="collapse navbar-collapse" id="navbarNav">
+				    	<ul class="navbar-nav">
+				      		<li class="nav-item active">
+				        		<a class="nav-link" href="#"><%=signIn%><span class="sr-only">(current)</span></a>
+				      		</li>
+				      		<li class="nav-item">
+				        		<a class="nav-link" id="login" href="login.jsp">로그인</a>
+				      		</li>
+				      		<li class="nav-item">
+				        		<a class="nav-link" id="logout" href="logout.jsp">로그아웃</a>
+				      		</li>
+				      		<li class="nav-item">
+				        		<a class="nav-link" id="signup" href="memberWrite.jsp">회원가입</a>
+				      		</li>
+				    	</ul>
+				  	</div>
+				</nav>
             </div>
             <div id="sidebar">SideBar</div>
             
             <div id="content">
             	<div>
 	            	<form name="frm" method="post" action="boardList.jsp">
-	            		<table border="0" width: 100%>
+	            		<table class="table table-striped table-bordered">
 	            			<colgroup>
 	            				<col width="80%"/>
 	            				<col width="20%"/>
@@ -106,7 +129,7 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 						</table>
 					</form>
 				</div>
-				<table class="board_table" border="1">
+				<table class="table table-striped table-bordered">
 					<colgroup>
 						<col width="15%">
 						<col width="30%">
@@ -145,7 +168,7 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 				<table style="width:100%">
 					<tr>
 						<td>
-						<% for(int i=1; i<totalPage; i++) {%>
+						<% for(int i=1; i<=totalPage; i++) {%>
 						<a href="noticeList.jsp?pageNo=<%=i %>"><%=i %></a>
 						<%
 						}
@@ -158,4 +181,16 @@ ResultSet rs2 = stmt.executeQuery(listSql);
             <div id="footer">Footer</div>
         </div>
     </body>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script>
+    	if(<%=login%>) {
+    		$("#login").parent().hide();
+    		$("#logout").parent().show();
+    		$("#signup").parent().hide();
+    	} else {
+    		$("#login").parent().show();
+    		$("#logout").parent().hide();
+    		$("#signup").parent().show();    		
+    	}
+    </script>
 </html>

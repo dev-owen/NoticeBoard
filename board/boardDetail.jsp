@@ -3,6 +3,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/include/mysqlDBcon.jsp" %>
 <%
+String sessionId = (String)session.getAttribute("SESSION_ID");
+boolean login = (sessionId == null ? false : true);
+String signIn = "";
+if(login) {
+	signIn = sessionId+"님 반갑습니다."; 
+}
+
 String unq = request.getParameter("unq");
 
 String updateSQL = "UPDATE nboard SET hit=hit+1 WHERE unq="+unq;
@@ -22,6 +29,8 @@ String content = rs.getString("content");
     	<meta charset="utf-8">
         <title>상세정보</title>
         <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">	
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
      <style>
     table { 
@@ -44,7 +53,21 @@ String content = rs.getString("content");
     </script>
     <body>
         <div id="container">
-            <div id="header">Header</div>
+            <div id="header">
+            	<span><i class="fas fa-chalkboard"></i>&nbsp;Header</span>
+            	<span style="position:absolute; right: 150px;"><%=signIn%></span>
+            	<% if(login) {
+            	%>
+            	<button type="button" onclick="location.href='logout.jsp'" style="position: absolute; right: 50px;">로그아웃</button>
+            	<%
+            	} else {
+            	%>
+            	<button type="button" onclick="location.href='login.jsp'" style="position: absolute; right: 140px;">로그인</button>
+            	<button type="button" onclick="location.href='memberWrite.jsp'" style="position: absolute; right: 50px;">회원가입</button>
+            	<%
+            	}
+            	%>
+            </div>
             <div id="sidebar">SideBar</div>
             
             <div id="content">
