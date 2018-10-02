@@ -4,7 +4,9 @@
 
 > FrontEnd : HTML, CSS, JavaScript, jQuery, BootStrap
 
-> BackEnd : JSP, Apache Tomcat
+> BackEnd : JSP, Servlet
+
+> Server : Apache Tomcat
 
 > DataBase : MySql
 
