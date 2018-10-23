@@ -23,3 +23,5 @@
 + 2018/09/19
   + 검색 기능, 상세정보, 수정
   + boardDetail.jsp / boardDel.jsp
++ 2018/10/23
+  + Bootstrap 4 이용하여 페이지 디자인
