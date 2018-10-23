@@ -3,5 +3,5 @@
 <% session.removeAttribute("SESSION_ID"); %>
 <script>
 alert("로그아웃 됐습니다.");
-location.href="boardList.jsp";
+location.href="history.back()";
 </script>

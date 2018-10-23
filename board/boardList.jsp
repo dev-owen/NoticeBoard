@@ -53,12 +53,13 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 
 <!doctype html>
 <html>
-    <head>
-    	<meta charset="utf-8">
-        <title>List</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    	<link rel="stylesheet" href="../css/bootstrap.css">	
-        <link rel="stylesheet" href="../css/main.css">
+<head>
+<meta charset="utf-8">
+<title>List</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/template.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Nanum+Gothic:400,700&amp;subset=korean" rel="stylesheet">
     </head>
     <style>
     table { 
@@ -102,9 +103,7 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 				    	</ul>
 				  	</div>
 				</nav>
-            </div>
-            <div id="sidebar">SideBar</div>
-            
+            </div>            
             <div id="content">
             	<div>
 	            	<form name="frm" method="post" action="boardList.jsp">
@@ -115,15 +114,26 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 	            			</colgroup>
 	            			<tr>
 	            				<td style="text-align: left">
-		            				<select name="column" style="height:22px;">
+	            					<div class="input-group mb-2">
+									  <div class="input-group-prepend">
+									    <button name="column" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+									    <div class="dropdown-menu">
+									      <a class="dropdown-item" value="title" <%if(column.equals("title")){%>selected<%} %>>제목</a>
+									      <a class="dropdown-item" value="content" <%if(column.equals("content")){%>selected<%} %>>내용</a>
+									    </div>
+									  </div>
+									  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="<%=words%>">
+									</div>
+	            					<button type="submit" class="btn btn-info">검색</button>
+		            				<!--<select name="column" style="height:22px;">
 		            					<option value="title" <%if(column.equals("title")){%>selected<%} %>>제목</option>
 		            					<option value="content" <%if(column.equals("content")){%>selected<%} %>>내용</option>
 		            				</select>
 	            					<input type="text" name="words" value="<%=words %>"/>
-	            					<button type="submit">검색</button>
+	            					<button type="submit" class="btn btn-info">검색</button>-->
 	            				</td>
 	            				<td>
-	            					<button type="button" onclick="location.href='boardWrite.jsp'">글쓰기</button>
+	            					<button type="button" class="btn btn-dark" onclick="location.href='boardWrite.jsp'">글쓰기</button>
 	            				</td>
 	            			</tr>
 						</table>
@@ -137,7 +147,7 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 						<col width="20%">
 						<col width="15%">
 					</colgroup>
-					<thead>
+					<thead style="color: #6d2b2b;">
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
@@ -169,7 +179,7 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 					<tr>
 						<td>
 						<% for(int i=1; i<=totalPage; i++) {%>
-						<a href="noticeList.jsp?pageNo=<%=i %>"><%=i %></a>
+						<a href="boardList.jsp?pageNo=<%=i %>"><%=i %></a>
 						<%
 						}
 						%>
@@ -181,7 +191,9 @@ ResultSet rs2 = stmt.executeQuery(listSql);
             <div id="footer">Footer</div>
         </div>
     </body>
-    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
     <script>
     	if(<%=login%>) {
     		$("#login").parent().hide();
