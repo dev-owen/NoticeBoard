@@ -2,6 +2,6 @@
     pageEncoding="UTF-8"%>
 <% session.removeAttribute("SESSION_ID"); %>
 <script>
-alert("로그아웃 됐습니다.");
-location.href="history.back()";
+alert("로그아웃 되었습니다.");
+location.href="${pageContext.request.contextPath}/index.jsp";
 </script>

@@ -28,9 +28,17 @@ if(login) {
 			display: none;
 		}
 
-		
 		frm {
 			margin-left: 160px;
+		}
+		
+		@media(min-width: 768px) {
+
+			#box {
+				width: 650px;
+				margin-left: auto;
+				margin-right: auto;
+			}
 		}
 		
     </style>
@@ -77,7 +85,7 @@ if(login) {
 				</nav>
             </div>            
             <div id="content">
-            	<form name="frm" method="post" action="boardWriteSave.jsp">
+            	<form name="frm" method="post" action="boardWriteSave.jsp" id="box">
             		<h3>자유게시판</h3><br>
             		<div class="form-group has-feedback">
 						<label class="control-label" for="title">제목</label> 
@@ -98,7 +106,7 @@ if(login) {
 					</div>
 					<div class="form-group has-feedback">
 						<label class="control-label" for="content">내용</label> 
-						<textarea class="form-control" name="content" id="content" style="height:100px; width:100%;"></textarea>
+						<textarea class="form-control" name="content" id="contents" style="height:100px; width:100%; text-align: left;"></textarea>
 						<p id="msg4" class="help-block">내용을 반드시 입력하세요</p>
 					</div>
 					<button class="btn btn-success" type="submit" onclick="fn_submit();return false;">저장</button>
@@ -111,7 +119,19 @@ if(login) {
             
         </div>
     </body>
-<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script>
+	if(<%=login%>) {
+		$("#login").parent().hide();
+		$("#logout").parent().show();
+		$("#signup").parent().hide();
+	} else {
+		$("#login").parent().show();
+		$("#logout").parent().hide();
+		$("#signup").parent().show();    		
+	}
+</script>
 <script>
 	var isTitleValid = false;
 	var isPwdValid = false;

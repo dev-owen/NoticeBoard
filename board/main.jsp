@@ -18,6 +18,12 @@ if(login) {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/template.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat|Nanum+Gothic:400,700&amp;subset=korean" rel="stylesheet">
+<style>
+	#content {
+		padding-top: 15%;
+		padding-bottom: 15%;
+	}
+</style>
 </head>
 <body>
 	<div id="container">
@@ -52,7 +58,8 @@ if(login) {
 		<div id="footer">
 		</div>
 	</div>
-	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script>
     	if(<%=login%>) {
     		$("#login").parent().hide();

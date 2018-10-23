@@ -123,8 +123,8 @@ ResultSet rs2 = stmt.executeQuery(listSql);
 									    </div>
 									  </div>
 									  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="<%=words%>">
+	            					<button type="submit" class="btn btn-info"><i class="fas fa-search"></i>&nbsp;검색</button>
 									</div>
-	            					<button type="submit" class="btn btn-info">검색</button>
 		            				<!--<select name="column" style="height:22px;">
 		            					<option value="title" <%if(column.equals("title")){%>selected<%} %>>제목</option>
 		            					<option value="content" <%if(column.equals("content")){%>selected<%} %>>내용</option>
@@ -192,9 +192,10 @@ ResultSet rs2 = stmt.executeQuery(listSql);
         </div>
     </body>
     <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script>
+    
     	if(<%=login%>) {
     		$("#login").parent().hide();
     		$("#logout").parent().show();
