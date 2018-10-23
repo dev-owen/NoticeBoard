@@ -25,3 +25,5 @@
   + boardDetail.jsp / boardDel.jsp
 + 2018/10/23
   + Bootstrap 4 이용하여 페이지 디자인
+  + boardList.jsp 드롭다운 기능이 안 된다.
+  + memberWrite.jsp 중복체크 기능이 안 된다.
